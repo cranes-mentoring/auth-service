@@ -1,0 +1,59 @@
+run:
+  issues-exit-code: 1
+
+linters-settings:
+  staticcheck:
+    checks:
+      - "all"
+      - "-ST1000"
+  errcheck:
+    excluded-functions:
+      - fmt.Fprintf
+      - fmt.Printf
+      - fmt.Println
+  gocyclo:
+    max-complexity: 15
+  dupl:
+    threshold: 100
+  gofmt:
+    simplify: true
+  gosec:
+    exclude:
+      - G104
+
+linters:
+  enable:
+    - govet
+    - staticcheck
+    - errcheck
+    - gofmt
+    - goimports
+    - gocyclo
+    - dupl
+    - ineffassign
+    - unparam
+    - unused
+    - gosec
+    - revive
+  disable:
+    - typecheck
+
+issues:
+  exclude-dirs:
+    - vendor
+    - build
+    - third_party
+  exclude-rules:
+    - path: ".*_test\\.go"
+      linters:
+        - errcheck
+    - linters:
+        - gosec
+      text: "G101"
+
+output:
+  formats:
+    - { format: colored-line-number }
+
+tests:
+  test-patterns: ['^Test', '^Benchmark']

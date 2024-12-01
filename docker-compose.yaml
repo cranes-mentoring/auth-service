@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15
+    container_name: auth-service-db
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: auth_db
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  memcached:
+    image: memcached:latest
+    container_name: auth-service-memcached
+    ports:
+      - '11211:11211'
+
+volumes:
+  db-data:
